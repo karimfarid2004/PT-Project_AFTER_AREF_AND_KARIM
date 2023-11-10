@@ -7,6 +7,9 @@ class Output	//The application manager should have a pointer to this class
 private:	
 	window* pWind;	//Pointer to the Graphics Window
 public:
+	int shapenum = 0;
+	int fillnum = 0;
+	int colornum = 0;
 	Output();		
 
 	window* CreateWind(int, int, int, int) const; //creates the application window
@@ -24,7 +27,11 @@ public:
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
-	
+	void DrawSqur(Point P1, GfxInfo RectGfxInfo, bool selected = false) const;			  //Draw a square
+	void DrawTrig(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, bool selected = false) const;				 //Draw a triangle
+	void DrawHexa(Point P1, GfxInfo RectGfxInfo, bool selected = false) const;			  //Draw a square
+	void DrawCirc(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;			  //Draw a square
+
 	///Make similar functions for drawing all other figure types.
 	
 	void PrintMessage(string msg) const;	//Print a message on Status bar

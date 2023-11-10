@@ -6,10 +6,29 @@
 //This file contains some global constants and definitions to be used in the project.
 enum ActionType //The actions supported (you can add more if needed)
 {
+	TO_ShapesToolBar,
 	DRAW_RECT,		//Draw Rectangle
+	DRAW_SQUARE,	//Draw Rectangle		
+	DRAW_CIRCLE,	//Draw Circle
+	DRAW_TRIANGLE,	//Draw Triangle
+	DRAW_HEXAGON,	//Draw Hexagon
 	EXIT,			//Exit
 	TO_DRAW,		//Switch interface to Draw mode
 	TO_PLAY,		//Switch interface to Play mode
+	TO_COLOR,
+	TO_FILL,
+	UNDO,
+	REDO,
+	DEL,
+	CLEAR,
+	RECVID,
+	ENDVID,
+	PLYVID,
+	SAVE,
+	LOAD,
+	PLAYCOLOR,
+	PLAYSHAPE,
+	PLAYBOTH,
 	SWITCH,
 	EMPTY,			//A click on empty place in the toolbar
 	DRAWING_AREA,	//A click on the drawing area

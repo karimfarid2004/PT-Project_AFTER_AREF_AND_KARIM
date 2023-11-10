@@ -16,13 +16,17 @@ string Input::GetSrting(Output *pO) const
 {
 	string Label;
 	char Key;
+	string entered = "You Entered ";
 	while(1)
 	{
 		pWind->WaitKeyPress(Key);
 		if(Key == 27 )	//ESCAPE key is pressed
 			return "";	//returns nothing as user has cancelled label
 		if(Key == 13 )	//ENTER key is pressed
-			return Label;
+		{
+			string str = entered + Label;
+			return str;
+		}
 		if((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
 			Label.resize(Label.size() -1 );			
 		else
@@ -51,8 +55,21 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-				//case ITM_RECT: return DRAW_RECT;
-			case ITM_PLYMOD: return TO_PLAY; /////////////////////////////////////WAITING FOR SAMEH
+			//case ITM_SLCT: return DRAW_RECT;///////???
+			case ITM_SHAPES: return TO_ShapesToolBar;
+			case ITM_PLYMOD: return TO_PLAY; /////////////////////////WAITING FOR SAMEH
+			case ITM_COLOR: return TO_COLOR;
+			case ITM_FILL: return TO_FILL;
+			case ITM_UNDO: return UNDO;
+			case ITM_REDO: return REDO;
+			case ITM_DLET: return DEL;
+			case ITM_CLR: return CLEAR;
+			case ITM_REC: return RECVID;
+			case ITM_END: return ENDVID;
+			case ITM_PLY: return PLYVID;
+			case ITM_SAVE: return SAVE;
+			case ITM_LOAD: return LOAD;
+			case ITM_EXIT_DRAWMODE: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -82,12 +99,22 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder) {
 
-			case ITM_SWITCH:return TO_DRAW; ////////////////WAINTING FOR SAMEH
+			case ITM_SWITCH:return TO_DRAW;
+			case ITM_TYP_COLOR:return PLAYCOLOR;
+			case ITM_TYP_SHAPE:return PLAYSHAPE;
+			case ITM_TYP_BOTH:return PLAYBOTH;
+			case ITM_EXIT_PLAYMODE:return TO_DRAW;
 
+			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
-
-			//return TO_PLAY;	//just for now. This should be updated
 		}
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		{
+			return DRAWING_AREA;
+		}
+		//[3] User clicks on the status bar
+		return STATUS;
 	}
 	else if (UI.InterfaceMode == COLOR_SELECTION)
 	{
@@ -104,9 +131,17 @@ ActionType Input::GetUserAction() const
 			case ITM_RED:return SELECT_RED;
 			case ITM_YELLOW:return SELECT_YELLOW;
 
+			default: return EMPTY;	//A click on empty place in desgin toolbar
+
 			}
 		}
-
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		{
+			return DRAWING_AREA;
+		}
+		//[3] User clicks on the status bar
+		return STATUS;
 	}
 	else if (UI.InterfaceMode == FILL_COLOR_SELECTION)
 	{
@@ -114,33 +149,58 @@ ActionType Input::GetUserAction() const
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
 
+
+
 			switch (ClickedItemOrder) {
 
-				switch (ClickedItemOrder) {
+			case ITM_BLACK:return SELECT_BLACK_FILL;
+			case ITM_BLUE:return SELECT_BLUE_FILL;
+			case ITM_GREEN:return SELECT_GREEN_FILL;
+			case ITM_ORANGE:return SELECT_ORANGE_FILL;
+			case ITM_RED:return SELECT_RED_FILL;
+			case ITM_YELLOW:return SELECT_YELLOW_FILL;
+			case ITM_NO_FILL:return SELECT_NO_FILL;
 
-				case ITM_BLACK:return SELECT_BLACK_FILL;
-				case ITM_BLUE:return SELECT_BLUE_FILL;
-				case ITM_GREEN:return SELECT_GREEN_FILL;
-				case ITM_ORANGE:return SELECT_ORANGE_FILL;
-				case ITM_RED:return SELECT_RED_FILL;
-				case ITM_YELLOW:return SELECT_YELLOW_FILL;
-				case ITM_NO_FILL:return SELECT_NO_FILL;
+			default: return EMPTY;	//A click on empty place in desgin toolbar
 
-				}
 			}
 		}
-		else if (UI.InterfaceMode == SHAPES_SELECTION)
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			if (y >= 0 && y < UI.ToolBarHeight)
-			{
-				int ClickedItemOrder = (x / UI.MenuItemWidth);
-
-				switch (ClickedItemOrder) {
-				 //////////WAITING FOR SAMEH
-
-				}
-			}
+			return DRAWING_AREA;
 		}
+		//[3] User clicks on the status bar
+		return STATUS;
+			
+	}
+	else if (UI.InterfaceMode == SHAPES_SELECTION)
+	{
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
+
+			switch (ClickedItemOrder) {
+			 //////////WAITING FOR SAMEH
+			case ITM_RECT:return DRAW_RECT;
+			case ITM_CIRC:return DRAW_CIRCLE;
+			case ITM_TRI:return DRAW_TRIANGLE;
+			case ITM_HEX:return DRAW_HEXAGON;
+			case ITM_SQU:return DRAW_SQUARE;
+
+			default: return EMPTY;	//A click on empty place in desgin toolbar
+
+			}
+
+		}
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		{
+			return DRAWING_AREA;
+		}
+		//[3] User clicks on the status bar
+		return STATUS;
+		
 	}
 }
 /////////////////////////////////
