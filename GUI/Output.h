@@ -26,6 +26,7 @@ public:
 	void ClearToolBar() const;
 	
 	// -- Figures Drawing functions
+	//ADEL cont....
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
 	void DrawSqur(Point P1, GfxInfo RectGfxInfo, bool selected = false) const;			  //Draw a square
 	void DrawTrig(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, bool selected = false) const;				 //Draw a triangle
